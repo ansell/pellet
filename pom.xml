@@ -25,11 +25,6 @@
 
     <modules>
         <module>core</module>
-<!--
-        <module>datatypes</module>
-        <module>el</module>
-        <module>rules</module>
-
         <module>jena</module>
         <module>query</module>
         <module>owlapiv3</module>
@@ -38,7 +33,8 @@
         <module>pellint</module>
         <module>cli</module>
         <module>examples</module> 
-        <module>test</module>  -->
+        <module>test</module>
+        <module>profiler</module>
     </modules>
 
     <properties>

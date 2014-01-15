@@ -4,3 +4,8 @@ build
 bin
 qa
 doc/javadoc
+
+target/
+.classpath
+.project
+.settings/

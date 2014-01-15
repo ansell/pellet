@@ -18,7 +18,7 @@ import com.clarkparsia.pellet.datatypes.exceptions.InvalidLiteralException;
  * Company: Clark & Parsia, LLC. <http://www.clarkparsia.com>
  * </p>
  * 
- * @author HŽctor PŽrez-Urbina
+ * @author HÃ©ctor PÃ©rez-Urbina
  */
 public class XSDName extends AbstractBaseDatatype<ATermAppl> {
 

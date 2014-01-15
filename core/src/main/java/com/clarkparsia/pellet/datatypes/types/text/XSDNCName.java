@@ -18,29 +18,29 @@ import com.clarkparsia.pellet.datatypes.exceptions.InvalidLiteralException;
  * Company: Clark & Parsia, LLC. <http://www.clarkparsia.com>
  * </p>
  * 
- * @author HŽctor PŽrez-Urbina
+ * @author HÃ©ctor PÃ©rez-Urbina
  */
-public class XSDNMToken extends AbstractBaseDatatype<ATermAppl> {
+public class XSDNCName extends AbstractBaseDatatype<ATermAppl> {
 
-	private static final XSDNMToken			instance;
+	private static final XSDNCName			instance;
 	private static final RDFPlainLiteral	RDF_PLAIN_LITERAL;
 
 	static {
 		RDF_PLAIN_LITERAL = RDFPlainLiteral.getInstance();
 
-		instance = new XSDNMToken();
+		instance = new XSDNCName();
 		RestrictedTextDatatype.addPermittedDatatype( instance.getName() );
 	}
 
-	public static XSDNMToken getInstance() {
+	public static XSDNCName getInstance() {
 		return instance;
 	}
 
 	private final RestrictedDatatype<ATermAppl>	dataRange;
 
-	private XSDNMToken() {
-		super(ATermUtils.makeTermAppl(Namespaces.XSD + "NMToken"));
-		dataRange = new RestrictedTextDatatype(this, RestrictedTextDatatype.NMTOKEN);
+	private XSDNCName() {
+		super(ATermUtils.makeTermAppl(Namespaces.XSD + "NCName"));
+		dataRange = new RestrictedTextDatatype(this, RestrictedTextDatatype.NCNAME);
 	}
 
 	public RestrictedDatatype<ATermAppl> asDataRange() {

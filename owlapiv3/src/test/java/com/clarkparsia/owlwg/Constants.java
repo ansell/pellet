@@ -25,20 +25,19 @@ import org.semanticweb.owlapi.model.IRI;
  * @author Mike Smith &lt;msmith@clarkparsia.com&gt;
  */
 public class Constants {
-	public static final URI OWLWG_BASE_PHYSICAL_URI;
-	public static final IRI	RESULTS_ONTOLOGY_PHYSICAL_IRI;
-	public static final IRI	TEST_ONTOLOGY_PHYSICAL_IRI;
-	public static final IRI OWLWG_TEST_CASES_IRI;
+	public static final String OWLWG_BASE_PHYSICAL_URI;
+	public static final String RESULTS_ONTOLOGY_PHYSICAL_IRI;
+	public static final String TEST_ONTOLOGY_PHYSICAL_IRI;
+	public static final String OWLWG_TEST_CASES_IRI;
 
 	static {
-		File f = new File( "owlapiv3/test_data/owlwg/" );
-		OWLWG_BASE_PHYSICAL_URI = f.toURI();
+		//File f = new File( "owlapiv3/test_data/owlwg/" );
+		OWLWG_BASE_PHYSICAL_URI = "/test_data/owlwg/";
 
-		TEST_ONTOLOGY_PHYSICAL_IRI = IRI.create( OWLWG_BASE_PHYSICAL_URI.resolve( "ontologies/test-ontology.owl" ) );
+		TEST_ONTOLOGY_PHYSICAL_IRI = OWLWG_BASE_PHYSICAL_URI + "ontologies/test-ontology.owl" ;
 
-		RESULTS_ONTOLOGY_PHYSICAL_IRI = IRI.create( OWLWG_BASE_PHYSICAL_URI.resolve( "ontologies/results-ontology.owl" ) );
+		RESULTS_ONTOLOGY_PHYSICAL_IRI = OWLWG_BASE_PHYSICAL_URI + "ontologies/results-ontology.owl" ;
 
-		OWLWG_TEST_CASES_IRI = IRI
-				.create( OWLWG_BASE_PHYSICAL_URI.resolve( "semantics-direct.rdf" ) );
+		OWLWG_TEST_CASES_IRI = OWLWG_BASE_PHYSICAL_URI + "semantics-direct.rdf" ;
 	}
 }

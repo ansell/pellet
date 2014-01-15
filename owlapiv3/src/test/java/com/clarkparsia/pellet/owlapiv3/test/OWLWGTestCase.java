@@ -44,10 +44,10 @@ public class OWLWGTestCase {
 		 * reading the test cases, otherwise import of them is likely to
 		 * fail.
 		 */
-		manager.loadOntologyFromOntologyDocument( TEST_ONTOLOGY_PHYSICAL_IRI );
-		manager.loadOntologyFromOntologyDocument( RESULTS_ONTOLOGY_PHYSICAL_IRI );
+		manager.loadOntologyFromOntologyDocument( OWLWGTestCase.class.getResourceAsStream(TEST_ONTOLOGY_PHYSICAL_IRI) );
+		manager.loadOntologyFromOntologyDocument( OWLWGTestCase.class.getResourceAsStream(RESULTS_ONTOLOGY_PHYSICAL_IRI) );
 
-		OWLOntology casesOntology = manager.loadOntologyFromOntologyDocument( OWLWG_TEST_CASES_IRI );
+		OWLOntology casesOntology = manager.loadOntologyFromOntologyDocument( OWLWGTestCase.class.getResourceAsStream(OWLWG_TEST_CASES_IRI) );
 		
 		TestCollection cases = new TestCollection( factory, casesOntology, filter );
 		

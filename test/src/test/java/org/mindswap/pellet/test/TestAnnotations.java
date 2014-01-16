@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Properties;
@@ -14,11 +15,15 @@ import junit.framework.JUnit4TestAdapter;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import org.junit.rules.Timeout;
 import org.mindswap.pellet.KnowledgeBase;
 import org.mindswap.pellet.PelletOptions;
 import org.mindswap.pellet.jena.PelletInfGraph;
 import org.mindswap.pellet.jena.PelletReasonerFactory;
+import org.mindswap.pellet.test.utils.TestUtils;
 import org.mindswap.pellet.utils.ATermUtils;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
@@ -58,9 +63,17 @@ import com.hp.hpl.jena.vocabulary.RDFS;
  */
 public class TestAnnotations {
 
-	private static final String	DATA1_RDF	= "file:test/data/annotations/data1.rdf";
-	private static final String	DATA1_TTL	= "file:test/data/annotations/data1.ttl";
-	private static final String	QUERY1_RQ	= "file:test/data/annotations/query1.rq";
+    @Rule
+    public Timeout timeout = new Timeout(10000);
+    
+    @Rule
+    public TemporaryFolder tempDir = new TemporaryFolder();
+    
+    private File testDir;
+    
+	private static final String	DATA1_RDF	= "/data/annotations/data1.rdf";
+	private static final String	DATA1_TTL	= "/data/annotations/data1.ttl";
+	private static final String	QUERY1_RQ	= "/data/annotations/query1.rq";
 
 	public static junit.framework.Test suite() {
 		return new JUnit4TestAdapter( TestAnnotations.class );
@@ -69,7 +82,8 @@ public class TestAnnotations {
 	private Properties savedOptions;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
+	    testDir = tempDir.newFolder("testannotations");
 		Properties newOptions = PropertiesBuilder.singleton( "USE_ANNOTATION_SUPPORT", "true" );
 		savedOptions = PelletOptions.setOptions( newOptions );
 	}
@@ -353,9 +367,9 @@ public class TestAnnotations {
 	}
 
 	@Test
-	public void testJenaLoader3() {		
+	public void testJenaLoader3() throws Exception {		
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( DATA1_TTL, "N3" );
+		model.read( TestUtils.copyResourceToFile(testDir, DATA1_TTL), "N3" );
 		model.prepare();
 
 		ATermAppl i = ATermUtils.makeTermAppl( "http://example.org#i" );
@@ -372,8 +386,8 @@ public class TestAnnotations {
 	}
 
 	@Test
-	public void testOWLAPILoader() throws OWLOntologyCreationException {
-		KnowledgeBase kb = new OWLAPILoader().createKB( DATA1_RDF );
+	public void testOWLAPILoader() throws Exception {
+		KnowledgeBase kb = new OWLAPILoader().createKB( TestUtils.copyResourceToFile(testDir, DATA1_RDF) );
 
 		ATermAppl i = ATermUtils.makeTermAppl( "http://example.org#i" );
 		ATermAppl label = ATermUtils.makeTermAppl( RDFS.label.getURI() );
@@ -388,12 +402,12 @@ public class TestAnnotations {
 	}
 
 	@Test
-	public void testCombinedQueryEngine() {
+	public void testCombinedQueryEngine() throws Exception {
 		// This tests annotations using the SPARQL-DL combined query engine
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( DATA1_RDF );
+		model.read( TestUtils.copyResourceToFile(testDir, DATA1_RDF) );
 
-		Query query = QueryFactory.read( QUERY1_RQ );
+		Query query = QueryFactory.read( TestUtils.copyResourceToFile(testDir, QUERY1_RQ) );
 		QueryExecution qe = SparqlDLExecutionFactory.create( query, model );
 
 		ResultSet rs = qe.execSelect();

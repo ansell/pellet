@@ -35,7 +35,7 @@ public class TestQuerySubsumption {
 	@Before
 	public void setUp() {
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( this.getClass().getResourceAsStream(ont), "", "RDF/XML" );
+		model.read( this.getClass().getResourceAsStream(ont), "RDFXML" );
 		model.prepare();
 		
 		kb = ((PelletInfGraph) model.getGraph()).getKB();

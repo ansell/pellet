@@ -7,6 +7,7 @@
 package com.clarkparsia.owlapiv3;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -119,6 +120,20 @@ public class OntologyUtils {
 		}
 	}
 
+    /**
+     * Loads the ontology with given URI.
+     * 
+     * @param uri the ontology uri
+     * @return the ontology
+     */
+    public static OWLOntology loadOntology( InputStream inputStream ) {
+        try {
+            return manager.loadOntologyFromOntologyDocument( inputStream );
+        } catch( OWLOntologyCreationException e ) {
+            throw new OWLRuntimeException( e );
+        }
+    }
+
 	/**
 	 * Loads the ontology with given URI and optionally removes all annotations
 	 * leaving only logical axioms.
@@ -140,6 +155,27 @@ public class OntologyUtils {
 		return ont;
 	}
 	
+    /**
+     * Loads the ontology with given URI and optionally removes all annotations
+     * leaving only logical axioms.
+     * 
+     * @see #removeAllAnnotations(OWLOntology, OWLOntologyManager)
+     * @param uri
+     *            the ontology uri
+     * @param withAnnotations
+     *            if <code>false</code> removes all annotation axioms from the
+     *            ontology, otherwise leaves the ontology intact
+     * @return the ontology
+     */
+    public static OWLOntology loadOntology( InputStream inputStream, boolean withAnnotations ) {
+        OWLOntology ont = loadOntology( inputStream );
+        
+        if( !withAnnotations )
+            removeAllAnnotations( ont, manager );
+        
+        return ont;
+    }
+    
 	/**
 	 * Prints a set of axioms to console
 	 * 

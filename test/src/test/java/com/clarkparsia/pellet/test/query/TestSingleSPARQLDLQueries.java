@@ -31,6 +31,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
+import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
@@ -151,10 +152,10 @@ public class TestSingleSPARQLDLQueries {
 	@Test
 	public void testDAWG1() {
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( "file:test/data/sparql-dawg-tests/data-r2/basic/data-1.ttl", "N3" );
+		model.read( this.getClass().getResourceAsStream("/data/sparql-dawg-tests/data-r2/basic/data-1.ttl"), "", "N3" );
 
 		Query query = QueryFactory
-				.read( "file:test/data/sparql-dawg-tests/data-r2/basic/base-prefix-1.rq" );
+				.create( FileManager.get().readWholeFileAsUTF8(this.getClass().getResourceAsStream("/data/sparql-dawg-tests/data-r2/basic/base-prefix-1.rq")) );
 
 		QueryExecution qe = SparqlDLExecutionFactory.create( query, model );
 
@@ -175,10 +176,10 @@ public class TestSingleSPARQLDLQueries {
 		// PelletInfGraph contains all inferred triples.
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( "file:test/data/sparql-dawg-tests/data-r2/graph/data-g1.ttl", "N3" );
+		model.read( this.getClass().getResourceAsStream("/data/sparql-dawg-tests/data-r2/graph/data-g1.ttl"), "", "N3" );
 
 		Query query = QueryFactory
-				.read( "file:test/data/sparql-dawg-tests/data-r2/graph/graph-01.rq" );
+		        .create( FileManager.get().readWholeFileAsUTF8(this.getClass().getResourceAsStream("/data/sparql-dawg-tests/data-r2/graph/graph-01.rq")) );
 
 		QueryExecution qe = SparqlDLExecutionFactory.create( query, model );
 
@@ -195,10 +196,10 @@ public class TestSingleSPARQLDLQueries {
 		// pattern, i.e. we handle the pattern as a property value
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( "file:test/data/sparql-dawg-tests/data-r2/graph/data-g1.ttl", "N3" );
+		model.read( this.getClass().getResourceAsStream("/data/sparql-dawg-tests/data-r2/graph/data-g1.ttl"), "", "N3" );
 
 		Query query = QueryFactory
-				.read( "file:test/data/sparql-dawg-tests/data-r2/graph/graph-01.rq" );
+		        .create( FileManager.get().readWholeFileAsUTF8(this.getClass().getResourceAsStream("/data/sparql-dawg-tests/data-r2/graph/graph-01.rq")) );
 
 		QueryExecution qe = SparqlDLExecutionFactory.create( query, 
 				DatasetFactory.create( model ), null, QueryEngineType.MIXED, false );
@@ -212,10 +213,10 @@ public class TestSingleSPARQLDLQueries {
 	@Test
 	public void testDAWG4() {
 		Model model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( "file:test/data/sparql-dawg-tests/data-r2/optional-filter/data-1.ttl", "N3" );
-
+		model.read( this.getClass().getResourceAsStream("/data/sparql-dawg-tests/data-r2/optional-filter/data-1.ttl"), "", "N3" );
+		
 		Query query = QueryFactory
-				.read( "file:test/data/sparql-dawg-tests/data-r2/optional-filter/expr-5.rq" );
+		        .create( FileManager.get().readWholeFileAsUTF8(this.getClass().getResourceAsStream("/data/sparql-dawg-tests/data-r2/optional-filter/expr-5.rq")) );
 
 		QueryExecution qe = SparqlDLExecutionFactory.create( query, model );
 

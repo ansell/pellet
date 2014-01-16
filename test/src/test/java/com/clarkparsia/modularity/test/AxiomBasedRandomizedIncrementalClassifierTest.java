@@ -34,7 +34,7 @@ public class AxiomBasedRandomizedIncrementalClassifierTest extends RandomizedInc
 	 * @param path
 	 */
 	public AxiomBasedRandomizedIncrementalClassifierTest() {
-		super( "test/data/modularity/" );
+		super( "/data/modularity/" );
 	}
 
 	/**

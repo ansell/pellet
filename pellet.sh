@@ -14,4 +14,4 @@ mvn -quiet clean install -DskipTests
 fi
 
 chmod u+x cli/target/appassembler/bin/*
-cli/target/appassembler/bin/$@
+cli/target/appassembler/bin/pellet $@

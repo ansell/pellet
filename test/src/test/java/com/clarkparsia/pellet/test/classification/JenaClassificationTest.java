@@ -28,11 +28,11 @@ import com.hp.hpl.jena.vocabulary.ReasonerVocabulary;
 public class JenaClassificationTest extends AbstractClassificationTest {
 	public void testClassification(String inputOnt, String classifiedOnt) {
 		OntModel premise = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		premise.read( inputOnt );
+		premise.read( this.getClass().getResourceAsStream(inputOnt) , "", "RDF/XML");
 		premise.prepare();
 
 		Model conclusion = ModelFactory.createDefaultModel();
-		conclusion.read( classifiedOnt );
+		conclusion.read( this.getClass().getResourceAsStream(classifiedOnt), "", "RDF/XML" );
 
 		StmtIterator stmtIter = conclusion.listStatements();
 

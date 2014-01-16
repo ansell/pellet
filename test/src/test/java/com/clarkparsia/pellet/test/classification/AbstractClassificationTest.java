@@ -21,7 +21,7 @@ public abstract class AbstractClassificationTest {
 	protected static boolean FAIL_AT_FIRST_ERROR = false;	
 	
 	public void testFile(String fileName) throws Exception {
-		String common = "file:"+ base + fileName;
+		String common = base + fileName;
 		testClassification( common + ".owl", common + "-conclusions.owl" );
 	}
 

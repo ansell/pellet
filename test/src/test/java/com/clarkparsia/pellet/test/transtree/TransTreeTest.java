@@ -3,11 +3,17 @@ package com.clarkparsia.pellet.test.transtree;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.commons.io.IOUtils;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.mindswap.pellet.KnowledgeBase;
 import org.mindswap.pellet.taxonomy.POTaxonomyBuilder;
 import org.mindswap.pellet.taxonomy.SubsumptionComparator;
@@ -25,14 +31,34 @@ import com.clarkparsia.pellet.owlapiv3.OWLAPILoader;
 
 public class TransTreeTest {
 	
+    @Rule
+    public TemporaryFolder tempDir = new TemporaryFolder();
+    
+    private File testDir;
+    
+    @Before
+    public void setUp() throws Exception {
+        testDir = tempDir.newFolder("transtreetest");
+    }
+    
 	@Test
-	public void testDiscoveryOntology() {
-		testProperty( "test/data/trans-tree-tests/discovery.owl", "http://purl.org/vocab/relationship/ancestorOf" );
+	public void testDiscoveryOntology() throws Exception {
+		testProperty( "data/trans-tree-tests/discovery.owl", "http://purl.org/vocab/relationship/ancestorOf" );
 	}
-		
-	private void testProperty( String ontologyURI, String propertyURI ) {
+	
+	private String copyResourceToFile(String resource) throws Exception {
+        File nextFile = new File(testDir, resource);
+        nextFile.mkdirs();
+        nextFile.createNewFile();
+        
+        IOUtils.copy(this.getClass().getResourceAsStream(resource), new FileOutputStream(nextFile));
+        return nextFile.getAbsolutePath();
+	}
+	
+	private void testProperty( String ontologyURI, String propertyURI ) throws Exception {
+	    String resourceToFile = copyResourceToFile(ontologyURI);
 		OWLAPILoader loader = new OWLAPILoader();
-		KnowledgeBase kb = loader.createKB( new String[] { ontologyURI } );
+		KnowledgeBase kb = loader.createKB( new String[] { resourceToFile } );
 		
 		OWLEntity entity = OntologyUtils.findEntity( propertyURI, loader.getAllOntologies() );
 
@@ -102,10 +128,10 @@ public class TransTreeTest {
 	}
 	
 	@Test
-	public void filter1() {
+	public void filter1() throws Exception {
 		PelletTransTree cli = new PelletTransTree();
 		
-		cli.parseArgs(new String[]{"trans-tree","-p","http://clarkparsia.com/pellet/tutorial/pops#subProjectOf","-f","http://clarkparsia.com/pellet/tutorial/pops#Employee","test/data/trans-tree-tests/ontology-010.ttl"});
+		cli.parseArgs(new String[]{"trans-tree","-p","http://clarkparsia.com/pellet/tutorial/pops#subProjectOf","-f","http://clarkparsia.com/pellet/tutorial/pops#Employee", copyResourceToFile("/test/data/trans-tree-tests/ontology-010.ttl")});
 		cli.run();
 		
 		Taxonomy<ATermAppl> taxonomy = cli.publicTaxonomy;

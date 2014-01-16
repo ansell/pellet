@@ -6,12 +6,15 @@
 
 package org.mindswap.pellet.test.utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import org.apache.commons.io.IOUtils;
 import org.mindswap.pellet.Individual;
 import org.mindswap.pellet.KnowledgeBase;
 import org.mindswap.pellet.Role;
@@ -119,5 +122,15 @@ public class TestUtils {
 
 	}
 	
-	
+   public static String copyResourceToFile(File testDir, String resource) throws Exception {
+        String filename = resource.substring(resource.lastIndexOf('/'));
+        String directory = resource.substring(0, resource.lastIndexOf('/')-1);
+        File nextDirectory = new File(testDir, directory);
+        nextDirectory.mkdirs();
+        File nextFile = new File(nextDirectory, filename);
+        nextFile.createNewFile();
+        
+        IOUtils.copy(TestUtils.class.getResourceAsStream(resource), new FileOutputStream(nextFile));
+        return nextFile.getAbsolutePath();
+    }
 }

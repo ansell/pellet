@@ -52,7 +52,7 @@
 					<programs>
 						<program>
 							<mainClass>pellet.Pellet</mainClass>
-							<name>pellet</name>
+							<id>pellet</id>
 						</program>
 					</programs>
 				</configuration>

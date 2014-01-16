@@ -43,12 +43,15 @@ public class TransTreeTest {
     
 	@Test
 	public void testDiscoveryOntology() throws Exception {
-		testProperty( "data/trans-tree-tests/discovery.owl", "http://purl.org/vocab/relationship/ancestorOf" );
+		testProperty( "/data/trans-tree-tests/discovery.owl", "http://purl.org/vocab/relationship/ancestorOf" );
 	}
 	
 	private String copyResourceToFile(String resource) throws Exception {
-        File nextFile = new File(testDir, resource);
-        nextFile.mkdirs();
+	    String filename = resource.substring(resource.lastIndexOf('/'));
+	    String directory = resource.substring(0, resource.lastIndexOf('/')-1);
+        File nextDirectory = new File(testDir, directory);
+        nextDirectory.mkdirs();
+        File nextFile = new File(nextDirectory, filename);
         nextFile.createNewFile();
         
         IOUtils.copy(this.getClass().getResourceAsStream(resource), new FileOutputStream(nextFile));
@@ -131,7 +134,7 @@ public class TransTreeTest {
 	public void filter1() throws Exception {
 		PelletTransTree cli = new PelletTransTree();
 		
-		cli.parseArgs(new String[]{"trans-tree","-p","http://clarkparsia.com/pellet/tutorial/pops#subProjectOf","-f","http://clarkparsia.com/pellet/tutorial/pops#Employee", copyResourceToFile("/test/data/trans-tree-tests/ontology-010.ttl")});
+		cli.parseArgs(new String[]{"trans-tree","-p","http://clarkparsia.com/pellet/tutorial/pops#subProjectOf","-f","http://clarkparsia.com/pellet/tutorial/pops#Employee", copyResourceToFile("/data/trans-tree-tests/ontology-010.ttl")});
 		cli.run();
 		
 		Taxonomy<ATermAppl> taxonomy = cli.publicTaxonomy;
@@ -161,10 +164,10 @@ public class TransTreeTest {
 	}
 	
 	@Test
-	public void filter2() {
+	public void filter2() throws Exception {
 		PelletTransTree cli = new PelletTransTree();
 		
-		cli.parseArgs(new String[]{"trans-tree","-p","http://clarkparsia.com/pellet/tutorial/pops#subProjectOf","-f","http://clarkparsia.com/pellet/tutorial/pops#Employee","--individuals","test/data/trans-tree-tests/ontology-010.ttl"});		
+		cli.parseArgs(new String[]{"trans-tree","-p","http://clarkparsia.com/pellet/tutorial/pops#subProjectOf","-f","http://clarkparsia.com/pellet/tutorial/pops#Employee","--individuals",copyResourceToFile("/data/trans-tree-tests/ontology-010.ttl")});		
 		cli.run();
 		
 		Taxonomy<ATermAppl> taxonomy = cli.publicTaxonomy;
@@ -175,10 +178,10 @@ public class TransTreeTest {
 	}
 	
 	@Test
-	public void filter3() {
+	public void filter3() throws Exception {
 		PelletTransTree cli = new PelletTransTree();
 		
-		cli.parseArgs(new String[]{"trans-tree","-p","http://clarkparsia.com/pellet/tutorial/pops#subProjectOf","-f","http://clarkparsia.com/pellet/tutorial/pops#Contractor","--individuals","test/data/trans-tree-tests/ontology-010.ttl"});		
+		cli.parseArgs(new String[]{"trans-tree","-p","http://clarkparsia.com/pellet/tutorial/pops#subProjectOf","-f","http://clarkparsia.com/pellet/tutorial/pops#Contractor","--individuals",copyResourceToFile("/data/trans-tree-tests/ontology-010.ttl")});		
 		cli.run();
 		
 		Taxonomy<ATermAppl> taxonomy = cli.publicTaxonomy;		

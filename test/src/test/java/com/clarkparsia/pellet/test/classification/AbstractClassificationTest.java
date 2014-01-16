@@ -8,7 +8,9 @@
 
 package com.clarkparsia.pellet.test.classification;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Timeout;
 import org.mindswap.pellet.test.PelletTestSuite;
 
 /**
@@ -16,6 +18,13 @@ import org.mindswap.pellet.test.PelletTestSuite;
  * @author Evren Sirin
  */
 public abstract class AbstractClassificationTest {
+    
+    /**
+     * Timeout each individual classification test after 5 minutes.
+     */
+    @Rule
+    public Timeout timeout = new Timeout(5 * 60 * 1000);
+    
 	public static final String	base	= PelletTestSuite.base + "modularity/";
 	
 	protected static boolean FAIL_AT_FIRST_ERROR = false;	

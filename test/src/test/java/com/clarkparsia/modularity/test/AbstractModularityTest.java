@@ -12,6 +12,8 @@ import static com.clarkparsia.owlapiv3.OWL.ObjectProperty;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -40,6 +42,13 @@ import com.clarkparsia.owlapiv3.OntologyUtils;
  * @author Evren Sirin
  */
 public abstract class AbstractModularityTest {
+    
+    /**
+     * Timeout all individual tests after 60 seconds.
+     */
+    @Rule
+    public Timeout timeout = new Timeout(60000);
+    
 //	protected static final OWLOntologyManager	manager		= OWL.manager;
 	
 	protected OWLOntology						ontology;

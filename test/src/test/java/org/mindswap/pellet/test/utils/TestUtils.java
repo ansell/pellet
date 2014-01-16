@@ -6,8 +6,11 @@
 
 package org.mindswap.pellet.test.utils;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -130,7 +133,10 @@ public class TestUtils {
         File nextFile = new File(nextDirectory, filename);
         nextFile.createNewFile();
         
-        IOUtils.copy(TestUtils.class.getResourceAsStream(resource), new FileOutputStream(nextFile));
+        InputStream inputStream = TestUtils.class.getResourceAsStream(resource);
+        assertNotNull("Missing test resource: "+resource, inputStream);
+        
+        IOUtils.copy(inputStream, new FileOutputStream(nextFile));
         return nextFile.getAbsolutePath();
     }
 }

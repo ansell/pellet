@@ -1098,7 +1098,7 @@ public class MiscRuleTests {
 	@Test
 	public void testDifferentFromInBody() throws Exception {
 		OntModel ontModel = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC, null );
-		ontModel.read( TestUtils.copyResourceToFile(testDir, base + "sibling-rule.n3"), "TTL" );
+		ontModel.read( TestUtils.copyResourceToFile(testDir, base + "/sibling-rule.n3"), "TTL" );
 
 		Resource alice = ontModel.createResource( "family:alice" );
 		Property sibling = ontModel.createProperty( "family:sibling" );

@@ -63,7 +63,7 @@ public class OWLPrimerTests extends AbstractOWLAPITests {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		ontology = OntologyUtils.loadOntology(TestUtils.copyResourceToFile(testDir, PelletTestSuite.base + "modularity/OWL2Primer.owl"));
+		ontology = OntologyUtils.loadOntology(TestUtils.copyResourceToFileStream(testDir, PelletTestSuite.base + "modularity/OWL2Primer.owl"));
 		reasoner = PelletReasonerFactory.getInstance().createReasoner(ontology);
 	}
 

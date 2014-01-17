@@ -9,6 +9,7 @@ package org.mindswap.pellet.test.utils;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -125,9 +126,13 @@ public class TestUtils {
 
 	}
 	
+   public static InputStream copyResourceToFileStream(File testDir, String resource) throws Exception {
+       return new FileInputStream(copyResourceToFile(testDir, resource));
+    }
+   
    public static String copyResourceToFile(File testDir, String resource) throws Exception {
         String filename = resource.substring(resource.lastIndexOf('/'));
-        String directory = resource.substring(0, resource.lastIndexOf('/')-1);
+        String directory = resource.substring(0, resource.lastIndexOf('/'));
         File nextDirectory = new File(testDir, directory);
         nextDirectory.mkdirs();
         File nextFile = new File(nextDirectory, filename);

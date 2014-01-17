@@ -26,6 +26,7 @@ import junit.framework.JUnit4TestAdapter;
 import org.junit.Test;
 import org.mindswap.pellet.test.AbstractKBTests;
 import org.mindswap.pellet.test.MiscTests;
+import org.mindswap.pellet.test.utils.TestUtils;
 
 import com.clarkparsia.pellet.owlapiv3.OWLAPILoader;
 
@@ -120,15 +121,15 @@ public class BlockingTests extends AbstractKBTests {
 	}
 	
 	@Test
-	public void complexInconsistent() {
-		kb = new OWLAPILoader().createKB( MiscTests.base + "one+one-inconsistent.owl" );
+	public void complexInconsistent() throws Exception {
+		kb = new OWLAPILoader().createKB( TestUtils.copyResourceToFile(testDir, MiscTests.base + "one+one-inconsistent.owl") );
 		
 		assertFalse( kb.isConsistent() );
 	}
 	
 	@Test
-	public void complexAllUnsat() {
-		kb = new OWLAPILoader().createKB( MiscTests.base + "one+one-consistent-but-all-unsat.owl" );
+	public void complexAllUnsat() throws Exception {
+		kb = new OWLAPILoader().createKB( TestUtils.copyResourceToFile(testDir, MiscTests.base + "one+one-consistent-but-all-unsat.owl") );
 		
 		assertTrue( kb.isConsistent() );
 		
@@ -136,8 +137,8 @@ public class BlockingTests extends AbstractKBTests {
 	}
 	
 	@Test
-	public void complexAllInfSat() {
-		kb = new OWLAPILoader().createKB( MiscTests.base + "one+one-consistent-and-all-inf-sat.owl" );
+	public void complexAllInfSat() throws Exception {
+		kb = new OWLAPILoader().createKB( TestUtils.copyResourceToFile(testDir, MiscTests.base + "one+one-consistent-and-all-inf-sat.owl") );
 		
 		assertTrue( kb.isConsistent() );
 		

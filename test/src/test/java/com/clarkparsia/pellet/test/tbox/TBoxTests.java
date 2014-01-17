@@ -61,7 +61,7 @@ public class TBoxTests extends AbstractKBTests {
 	
 	
 	@Before
-	public void initializeKB() {
+	public void initializeKB() throws Exception {
 		super.initializeKB();
 		tbox = kb.getTBox();
 	}

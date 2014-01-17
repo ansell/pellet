@@ -66,6 +66,7 @@ import org.mindswap.pellet.Role;
 import org.mindswap.pellet.jena.JenaLoader;
 import org.mindswap.pellet.taxonomy.Taxonomy;
 import org.mindswap.pellet.taxonomy.TaxonomyNode;
+import org.mindswap.pellet.test.utils.TestUtils;
 import org.mindswap.pellet.utils.ATermUtils;
 import org.mindswap.pellet.utils.FileUtils;
 import org.mindswap.pellet.utils.SetUtils;
@@ -86,7 +87,7 @@ import com.clarkparsia.pellet.utils.PropertiesBuilder;
 import com.clarkparsia.pellet.utils.TermFactory;
 
 public class MiscTests extends AbstractKBTests {
-	public static String	base	= "file:" + PelletTestSuite.base + "misc/";
+	public static String	base	= PelletTestSuite.base + "misc/";
 
 	public static void main(String args[]) {
 		junit.textui.TestRunner.run( MiscTests.suite() );
@@ -149,10 +150,10 @@ public class MiscTests extends AbstractKBTests {
 	}
 
 	@Test
-	public void testFileUtilsToURI() throws MalformedURLException {
-
-		assertEquals( new File( "build.xml" ).toURI().toURL().toString(), FileUtils
-				.toURI( "build.xml" ) );
+	public void testFileUtilsToURI() throws Exception {
+	    String file = TestUtils.copyResourceToFile(testDir, "/data/misc/propertyChainDeprecated.owl");
+		assertEquals( new File( testDir, "/data/misc/propertyChainDeprecated.owl" ).toURI().toURL().toString(), FileUtils
+				.toURI( file ) );
 		assertEquals( "http://example.com/foo", FileUtils.toURI( "http://example.com/foo" ) );
 		assertEquals( "file:///foo", FileUtils.toURI( "file:///foo" ) );
 		assertEquals( "ftp://example.com/foo", FileUtils.toURI( "ftp://example.com/foo" ) );
@@ -1346,10 +1347,10 @@ public class MiscTests extends AbstractKBTests {
 	}
 	
 	@Test
-	public void testInvalidTransitivity2() {
+	public void testInvalidTransitivity2() throws Exception {
 		KBLoader[] loaders = { new JenaLoader() };
 		for( KBLoader loader : loaders ) {
-			KnowledgeBase kb = loader.createKB( base + "invalidTransitivity.owl" );
+			KnowledgeBase kb = loader.createKB( TestUtils.copyResourceToFile(testDir, base + "invalidTransitivity.owl") );
 			
 			for( Role r : kb.getRBox().getRoles() ) {
 				if ( !ATermUtils.isBuiltinProperty( r.getName() ) ) {

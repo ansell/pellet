@@ -178,7 +178,7 @@ public class IncConsistencyTests extends AbstractKBTests {
 	}
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		preUCQ = PelletOptions.USE_COMPLETION_QUEUE;
 		preUIC = PelletOptions.USE_INCREMENTAL_CONSISTENCY;
 		preUSR = PelletOptions.USE_SMART_RESTORE;

@@ -39,236 +39,236 @@ public class SWRLBuiltIns extends SWRLAbstract {
 
 	@BeforeClass
 	public static void setUp() {
-		base = "file:" + PelletTestSuite.base + "swrl-builtIns/";
+		base = PelletTestSuite.base + "swrl-builtIns/";
 	}
 
 	@Test
-	public void equal() {
+	public void equal() throws Exception {
 		test( "equal" );
 	}
 
 	@Test
-	public void notEqual() {
+	public void notEqual() throws Exception {
 		test( "notEqual" );
 	}
 
 	@Test
-	public void lessThan() {
+	public void lessThan() throws Exception {
 		test( "lessThan" );
 	}
 
 	@Test
-	public void lessThanOrEqual() {
+	public void lessThanOrEqual() throws Exception {
 		test( "lessThanOrEqual" );
 	}
 
 	@Test
-	public void greaterThan() {
+	public void greaterThan() throws Exception {
 		test( "greaterThan" );
 	}
 
 	@Test
-	public void greaterThanOrEqual() {
+	public void greaterThanOrEqual() throws Exception {
 		test( "greaterThanOrEqual" );
 	}
 
 	@Test
-	public void add() {
+	public void add() throws Exception {
 		test( "add" );
 	}
 
 	@Test
-	public void subtract() {
+	public void subtract() throws Exception {
 		test( "subtract" );
 	}
 
 	@Test
-	public void multiply() {
+	public void multiply() throws Exception {
 		test( "multiply" );
 	}
 
 	@Test
-	public void divide() {
+	public void divide() throws Exception {
 		test( "divide" );
 	}
 
 	@Test
-	public void integerDivide() {
+	public void integerDivide() throws Exception {
 		test( "integerDivide" );
 	}
 
 	@Test
-	public void mod() {
+	public void mod() throws Exception {
 		test( "mod" );
 	}
 
 	@Test
-	public void pow() {
+	public void pow() throws Exception {
 		test( "pow" );
 	}
 
 	@Test
-	public void unaryPlus() {
+	public void unaryPlus() throws Exception {
 		test( "unaryPlus" );
 	}
 
 	@Test
-	public void unaryMinus() {
+	public void unaryMinus() throws Exception {
 		test( "unaryMinus" );
 	}
 
 	@Test
-	public void abs() {
+	public void abs() throws Exception {
 		test( "abs" );
 	}
 
 	@Test
-	public void ceiling() {
+	public void ceiling() throws Exception {
 		test( "ceiling" );
 	}
 
 	@Test
-	public void floor() {
+	public void floor() throws Exception {
 		test( "floor" );
 	}
 
 	@Test
-	public void round() {
+	public void round() throws Exception {
 		test( "round" );
 	}
 
 	@Test
-	public void roundHalfToEven() {
+	public void roundHalfToEven() throws Exception {
 		test( "roundHalfToEven" );
 	}
 
 	@Test
-	public void sin() {
+	public void sin() throws Exception {
 		test( "sin" );
 	}
 
 	@Test
-	public void cos() {
+	public void cos() throws Exception {
 		test( "cos" );
 	}
 
 	@Test
-	public void tan() {
+	public void tan() throws Exception {
 		test( "tan" );
 	}
 
 	@Test
-	public void booleanNot() {
+	public void booleanNot() throws Exception {
 		test( "booleanNot" );
 	}
 
 	@Test
-	public void stringEqualIgnoreCase() {
+	public void stringEqualIgnoreCase() throws Exception {
 		test( "stringEqualIgnoreCase" );
 	}
 
 	@Test
-	public void stringConcat() {
+	public void stringConcat() throws Exception {
 		test( "stringConcat" );
 	}
 
 	@Test
-	public void substring() {
+	public void substring() throws Exception {
 		test( "substring" );
 	}
 
 	@Test
-	public void stringLength() {
+	public void stringLength() throws Exception {
 		test( "stringLength" );
 	}
 
 	@Test
-	public void normalizeSpace() {
+	public void normalizeSpace() throws Exception {
 		test( "normalizeSpace" );
 	}
 
 	@Test
-	public void upperCase() {
+	public void upperCase() throws Exception {
 		test( "upperCase" );
 	}
 
 	@Test
-	public void lowerCase() {
+	public void lowerCase() throws Exception {
 		test( "lowerCase" );
 	}
 
 	@Test
-	public void translate() {
+	public void translate() throws Exception {
 		test( "translate" );
 	}
 
 	@Test
-	public void contains() {
+	public void contains() throws Exception {
 		test( "contains" );
 	}
 
 	@Test
-	public void containsIgnoreCase() {
+	public void containsIgnoreCase() throws Exception {
 		test( "containsIgnoreCase" );
 	}
 
 	@Test
-	public void startsWith() {
+	public void startsWith() throws Exception {
 		test( "startsWith" );
 	}
 
 	@Test
-	public void endsWith() {
+	public void endsWith() throws Exception {
 		test( "endsWith" );
 	}
 
 	@Test
-	public void substringBefore() {
+	public void substringBefore() throws Exception {
 		test( "substringBefore" );
 	}
 
 	@Test
-	public void substringAfter() {
+	public void substringAfter() throws Exception {
 		test( "substringAfter" );
 	}
 
 	@Test
-	public void matches() {
+	public void matches() throws Exception {
 		test( "matches" );
 	}
 
 	@Test
-	public void replace() {
+	public void replace() throws Exception {
 		test( "replace" );
 	}
 
 	@Test
-	public void tokenize() {
+	public void tokenize() throws Exception {
 		test( "tokenize" );
 	}
 
 	@Test
-	public void yearMonthDuration() {
+	public void yearMonthDuration() throws Exception {
 		test( "yearMonthDuration" );
 	}
 
 	@Test
-	public void dayTimeDuration() {
+	public void dayTimeDuration() throws Exception {
 		test( "dayTimeDuration" );
 	}
 
 	@Test
-	public void dateTime() {
+	public void dateTime() throws Exception {
 		test( "dateTime" );
 	}
 
 	@Test
-	public void date() {
+	public void date() throws Exception {
 		test( "date" );
 	}
 
 	@Test
-	public void time() {
+	public void time() throws Exception {
 		test( "time" );
 	}
 
@@ -297,12 +297,12 @@ public class SWRLBuiltIns extends SWRLAbstract {
 	//subtractDateTimesYieldingDayTimeDuration
 
 	@Test
-	public void resolveURI() {
+	public void resolveURI() throws Exception {
 		test( "resolveURI" );
 	}
 
 	@Test
-	public void anyURI() {
+	public void anyURI() throws Exception {
 		test( "anyURI" );
 	}
 }

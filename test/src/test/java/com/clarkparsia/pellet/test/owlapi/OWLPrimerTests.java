@@ -14,8 +14,10 @@ import java.util.Set;
 
 import junit.framework.JUnit4TestAdapter;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mindswap.pellet.test.PelletTestSuite;
+import org.mindswap.pellet.test.utils.TestUtils;
 import org.mindswap.pellet.utils.SetUtils;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -57,10 +59,11 @@ public class OWLPrimerTests extends AbstractOWLAPITests {
 	}
 
 	@Override
-	public void resetOntologyManager() {
-		super.resetOntologyManager();
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
 
-		ontology = OntologyUtils.loadOntology("file:" + PelletTestSuite.base + "modularity/OWL2Primer.owl");
+		ontology = OntologyUtils.loadOntology(TestUtils.copyResourceToFile(testDir, PelletTestSuite.base + "modularity/OWL2Primer.owl"));
 		reasoner = PelletReasonerFactory.getInstance().createReasoner(ontology);
 	}
 

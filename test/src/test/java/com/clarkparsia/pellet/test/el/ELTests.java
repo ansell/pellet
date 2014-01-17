@@ -34,6 +34,7 @@ import org.mindswap.pellet.taxonomy.Taxonomy;
 import org.mindswap.pellet.taxonomy.TaxonomyBuilder;
 import org.mindswap.pellet.test.AbstractKBTests;
 import org.mindswap.pellet.test.PelletTestSuite;
+import org.mindswap.pellet.test.utils.TestUtils;
 import org.mindswap.pellet.utils.ATermUtils;
 import org.mindswap.pellet.utils.SetUtils;
 import org.mindswap.pellet.utils.progress.SilentProgressMonitor;
@@ -891,14 +892,14 @@ builder.setProgressMonitor( new SilentProgressMonitor() );
 	}
 	
 	@Test
-	public void testTicket424() {
+	public void testTicket424() throws Exception {
 		classes(A, B, C, D, E, F, G);
 		objectProperties(p, q, r, s);
 
 
 		KBLoader loader = new JenaLoader();
 		
-		KnowledgeBase kb = loader.createKB( new String[] { "file:" + PelletTestSuite.base + "misc/ticket-424-test-case.owl" } );
+		KnowledgeBase kb = loader.createKB( new String[] { TestUtils.copyResourceToFile(testDir, PelletTestSuite.base + "misc/ticket-424-test-case.owl") } );
 		
 		Taxonomy<ATermAppl> toldTaxonomy = kb.getToldTaxonomy();
 				
@@ -951,7 +952,7 @@ builder.setProgressMonitor( new SilentProgressMonitor() );
 	 * Tests to verify whether PelletOptions.DISABLE_EL_CLASSIFIER = false is respected. (Ticket #461)
 	 */
 	@Test
-	public void testELClassifierEnabled() {
+	public void testELClassifierEnabled() throws Exception {
 		classes(A, B, C, D, E, F, G);
 		objectProperties(p, q, r, s);
 
@@ -963,7 +964,7 @@ builder.setProgressMonitor( new SilentProgressMonitor() );
 
 			KBLoader loader = new JenaLoader();
 
-			KnowledgeBase kb = loader.createKB( new String[] { "file:" + PelletTestSuite.base + "misc/ticket-424-test-case.owl" } );
+			KnowledgeBase kb = loader.createKB( new String[] { TestUtils.copyResourceToFile(testDir, PelletTestSuite.base + "misc/ticket-424-test-case.owl") } );
 
 			assertEquals( SimplifiedELClassifier.class, kb.getTaxonomyBuilder().getClass() );
 		} 
@@ -976,7 +977,7 @@ builder.setProgressMonitor( new SilentProgressMonitor() );
 	 * Tests to verify whether PelletOptions.DISABLE_EL_CLASSIFIER = true is respected. (Ticket #461)
 	 */
 	@Test
-	public void testELClassifierDisabled() {
+	public void testELClassifierDisabled() throws Exception {
 		boolean savedValue = PelletOptions.DISABLE_EL_CLASSIFIER ;
 
 		try {
@@ -984,7 +985,7 @@ builder.setProgressMonitor( new SilentProgressMonitor() );
 
 			KBLoader loader = new JenaLoader();
 
-			KnowledgeBase kb = loader.createKB( new String[] { "file:" + PelletTestSuite.base + "misc/ticket-424-test-case.owl" } );
+			KnowledgeBase kb = loader.createKB( new String[] { TestUtils.copyResourceToFile(testDir, PelletTestSuite.base + "misc/ticket-424-test-case.owl" ) } );
 
 			assertFalse( SimplifiedELClassifier.class.equals( kb.getTaxonomyBuilder().getClass() ) );
 		} 

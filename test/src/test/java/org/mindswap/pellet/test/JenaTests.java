@@ -17,6 +17,7 @@ import static org.mindswap.pellet.test.PelletTestCase.assertIteratorContains;
 import static org.mindswap.pellet.test.PelletTestCase.assertIteratorValues;
 import static org.mindswap.pellet.test.PelletTestCase.assertPropertyValues;
 
+import java.io.File;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -27,8 +28,11 @@ import java.util.Properties;
 
 import junit.framework.JUnit4TestAdapter;
 
+import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.mindswap.pellet.KnowledgeBase;
 import org.mindswap.pellet.PelletOptions;
 import org.mindswap.pellet.jena.ModelExtractor;
@@ -36,6 +40,7 @@ import org.mindswap.pellet.jena.PelletInfGraph;
 import org.mindswap.pellet.jena.PelletReasoner;
 import org.mindswap.pellet.jena.PelletReasonerFactory;
 import org.mindswap.pellet.jena.vocabulary.OWL2;
+import org.mindswap.pellet.test.utils.TestUtils;
 import org.mindswap.pellet.utils.ATermUtils;
 
 import aterm.ATermAppl;
@@ -75,7 +80,12 @@ import com.hp.hpl.jena.vocabulary.ReasonerVocabulary;
 import com.hp.hpl.jena.vocabulary.XSD;
 
 public class JenaTests {
-	public static String	base	= "file:" + PelletTestSuite.base + "misc/";
+    @Rule
+    public TemporaryFolder tempDir = new TemporaryFolder();
+    
+    protected File testDir;
+    
+	public static String	base	= PelletTestSuite.base + "misc/";
 
 	public static void main(String args[]) {
 		junit.textui.TestRunner.run( JenaTests.suite() );
@@ -85,6 +95,11 @@ public class JenaTests {
 		return new JUnit4TestAdapter( JenaTests.class );
 	}
 
+	@Before
+	public void setUp() throws Exception {
+	    testDir = tempDir.newFolder("pelletjenatests");
+	}
+	
 	@Test
 	public void testIncrementalABoxAddition() throws MalformedURLException {
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC, null );
@@ -183,12 +198,12 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testOWL2() {
+	public void testOWL2() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel factory = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM );
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "owl2.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "owl2.owl") );
 
 		OntClass C = model.getOntClass( ns + "C" );
 		OntClass D = model.getOntClass( ns + "D" );
@@ -258,11 +273,11 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testUncle() {
+	public void testUncle() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "uncle.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "uncle.owl") );
 
 		Individual Bob = model.getIndividual( ns + "Bob" );
 		Individual Sam = model.getIndividual( ns + "Sam" );
@@ -275,11 +290,11 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testQualifiedCardinality1() {
+	public void testQualifiedCardinality1() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "qcr.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "qcr.owl") );
 
 		OntClass sub = model.getOntClass( ns + "sub" );
 		OntClass sup = model.getOntClass( ns + "sup" );
@@ -389,12 +404,12 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testReflexive2() {
+	public void testReflexive2() throws Exception {
 		String ns = "http://www.example.org/test#";
 		String foaf = "http://xmlns.com/foaf/0.1/";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "reflexive.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "reflexive.owl") );
 
 		ObjectProperty[] knows = {
 				model.getObjectProperty( foaf + "knows" ),
@@ -635,12 +650,12 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testClosedUniverse() {
+	public void testClosedUniverse() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
 
-		model.read( base + "ClosedUniverse.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "ClosedUniverse.owl") );
 
 		model.prepare();
 
@@ -653,13 +668,14 @@ public class JenaTests {
 
 	/**
 	 * Verifies that we can parse the OWL 1.1 self restriction RDF syntax
+	 * @throws Exception 
 	 */
 	@Test
-	public void deprecatedSelfRestrictionSyntax() {
+	public void deprecatedSelfRestrictionSyntax() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "/deprecatedSelf.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "/deprecatedSelf.owl") );
 		model.prepare();
 		assertTrue( ((PelletInfGraph) model.getGraph()).getKB().isConsistent() );
 
@@ -676,11 +692,11 @@ public class JenaTests {
 	 * handled correctly.
 	 */
 	@Test
-	public void entityDeclarations() {
+	public void entityDeclarations() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "/entityDeclarations.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "/entityDeclarations.owl") );
 		model.prepare();
 
 		KnowledgeBase kb = ((PelletInfGraph) model.getGraph()).getKB();
@@ -715,12 +731,12 @@ public class JenaTests {
 	}
 
 	@Test
-	public void test3Sat() {
+	public void test3Sat() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
 
-		model.read( base + "3Sat.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "3Sat.owl") );
 
 		String solution = "101";
 		int n = solution.length();
@@ -871,12 +887,12 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testAnonInverse() {
+	public void testAnonInverse() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
 
-		model.read( base + "anon_inverse.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "anon_inverse.owl") );
 
 		model.prepare();
 
@@ -1161,11 +1177,11 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testSudaku() {
+	public void testSudaku() throws Exception {
 		String ns = "http://sudoku.owl#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "sudaku.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "sudaku.owl") );
 
 		OntClass[][] C = new OntClass[4][4];
 		Individual[][] V = new Individual[4][4];
@@ -1250,10 +1266,10 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testInfiniteChain() {
+	public void testInfiniteChain() throws Exception {
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
 		model.setStrictMode( false );
-		model.read( base + "infiniteChain.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "infiniteChain.owl") );
 
 		model.prepare();
 
@@ -1284,11 +1300,11 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testParents() {
+	public void testParents() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "parents.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "parents.owl") );
 
 		Individual Bob = model.getIndividual( ns + "Bob" );
 		Individual Mom = model.getIndividual( ns + "Mom" );
@@ -1326,12 +1342,12 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testTeams() {
+	public void testTeams() throws Exception {
 		String ns = "http://owl.man.ac.uk/2005/sssw/teams#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
 
-		model.read( base + "teams.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "teams.owl") );
 
 		Individual t1 = model.getIndividual( ns + "OntologyFC" );
 
@@ -1416,9 +1432,9 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testTransitive1() {
+	public void testTransitive1() throws Exception {
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "agencies.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "agencies.owl") );
 
 		model.prepare();
 
@@ -1458,9 +1474,9 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testTransitive2() {
+	public void testTransitive2() throws Exception {
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "cyclic_transitive.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "cyclic_transitive.owl") );
 
 		model.prepare();
 
@@ -1580,12 +1596,12 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testTransitiveSubProperty2() {
+	public void testTransitiveSubProperty2() throws Exception {
 		String ns = "http://www.co-ode.org/ontologies/test/pellet/transitive.owl#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
 
-		model.read( base + "transitiveSub.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "transitiveSub.owl") );
 
 		OntClass ThingsThatpSomeC = model.getOntClass( ns + "ThingsThatpSomeC" );
 		OntClass A = model.getOntClass( ns + "A" );
@@ -1599,12 +1615,12 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testNominals() {
+	public void testNominals() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
 
-		model.read( base + "nominals.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "nominals.owl") );
 
 		OntClass Color = model.getOntClass( ns + "Color" );
 		Individual red = model.getIndividual( ns + "red" );
@@ -1662,12 +1678,12 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testDatatypeHierarchy() {
+	public void testDatatypeHierarchy() throws Exception {
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "all_datatypes.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "all_datatypes.owl") );
 
 		OntModel hierarchy = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM );
-		model.read( base + "datatype_hierarchy.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "datatype_hierarchy.owl") );
 
 		Iterator<?> i = hierarchy.listClasses();
 		while( i.hasNext() ) {
@@ -1758,13 +1774,13 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testESG() {
+	public void testESG() throws Exception {
 		String ns = "http://www.csm.ornl.gov/~7lp/onto-library/esg1.1#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
 		model.getDocumentManager().setProcessImports( false );
 
-		model.read( base + "ESG1.1.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "ESG1.1.owl") );
 
 		model.prepare();
 
@@ -1785,9 +1801,9 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testDatapropertyRange() {
+	public void testDatapropertyRange() throws Exception {
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "datataype_range.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "datataype_range.owl") );
 
 		model.prepare();
 
@@ -1824,11 +1840,11 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testUserDefinedFloatDatatypes() {
+	public void testUserDefinedFloatDatatypes() throws Exception {
 		String ns = "http://www.lancs.ac.uk/ug/dobsong/owl/float_test.owl#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "float_test.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "float_test.owl") );
 
 		model.prepare();
 
@@ -1853,11 +1869,11 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testUserDefinedDecimalDatatypes() {
+	public void testUserDefinedDecimalDatatypes() throws Exception {
 		String ns = "http://www.lancs.ac.uk/ug/dobsong/owl/decimal_test.owl#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "decimal_test.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "decimal_test.owl") );
 
 		model.prepare();
 
@@ -2031,11 +2047,11 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testFamily() {
+	public void testFamily() throws Exception {
 		String ns = "http://www.example.org/family#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC, null );
-		model.read( base + "family.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "family.owl") );
 
 		ObjectProperty hasBrother = model.getObjectProperty( ns + "hasBrother" );
 		ObjectProperty hasSon = model.getObjectProperty( ns + "hasSon" );
@@ -2181,11 +2197,11 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testSibling() {
+	public void testSibling() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "sibling.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "sibling.owl") );
 
 		Individual Bob = model.getIndividual( ns + "Bob" );
 		Individual John = model.getIndividual( ns + "John" );
@@ -2199,11 +2215,11 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testDLSafeRules() {
+	public void testDLSafeRules() throws Exception {
 		String ns = "http://owldl.com/ontologies/dl-safe.owl#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC, null );
-		model.read( base + "dl-safe.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "dl-safe.owl") );
 
 		// ObjectProperty father = model.getObjectProperty( ns + "father" );
 		ObjectProperty hates = model.getObjectProperty( ns + "hates" );
@@ -2259,11 +2275,11 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testDLSafeConstants() {
+	public void testDLSafeConstants() throws Exception {
 		String ns = "http://owldl.com/ontologies/dl-safe-constants.owl#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC, null );
-		model.read( base + "dl-safe-constants.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "dl-safe-constants.owl") );
 
 		OntClass DreamTeamMember = model.getOntClass( ns + "DreamTeamMember" );
 		OntClass DreamTeamMember1 = model.getOntClass( ns + "DreamTeamMember1" );
@@ -2445,16 +2461,16 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testTicket96() {
+	public void testTicket96() throws Exception {
 		OntModel pellet = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
 
-		pellet.read( base + "ticket-96-test-case.rdf" );
+		pellet.read( TestUtils.copyResourceToFile(testDir, base + "ticket-96-test-case.rdf") );
 
 		assertTrue( pellet.validate().isValid() );
 	}
 
 	@Test
-	public void testNaryDisjointness() {
+	public void testNaryDisjointness() throws Exception {
 		// tests whether owl:Alldifferent, owl:AllDisjointClasses,
 		// owl:AllDisjointProperties
 		// statements in RDF/XML will be parsed correctly to yield
@@ -2464,7 +2480,7 @@ public class JenaTests {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "disjoints.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "disjoints.owl") );
 
 		Model inferences = ModelFactory.createDefaultModel();
 		addStatements( inferences, OWL.Nothing, OWL.disjointWith, OWL.Nothing );
@@ -2792,9 +2808,9 @@ public class JenaTests {
 	}
 
 	@Test
-	public void testCardinalityParsing() {
+	public void testCardinalityParsing() throws Exception {
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "cardinality_parsing.owl" );
+		model.read( TestUtils.copyResourceToFile(testDir, base + "cardinality_parsing.owl") );
 		model.prepare();
 		
 		assertTrue( ((PelletInfGraph) model.getGraph()).getLoader().getUnpportedFeatures().isEmpty() );
@@ -2965,11 +2981,11 @@ public class JenaTests {
 	}
 	
 	@Test
-	public void datatypeDefinition() {
+	public void datatypeDefinition() throws Exception {
 		String ns = "http://www.example.org/test#";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "/datatypeDefinition.ttl" , "TTL");
+		model.read( TestUtils.copyResourceToFile(testDir, base + "/datatypeDefinition.ttl") , "TTL");
 		model.prepare();
 
 		Resource a = model.getResource( ns + "a" );
@@ -3190,11 +3206,11 @@ public class JenaTests {
 
 	
 	@Test
-	public void test549() {
+	public void test549() throws Exception {
 		String ns = "urn:test:";
 
 		OntModel model = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC );
-		model.read( base + "/float_intervals.ttl" , "TTL");
+		model.read( TestUtils.copyResourceToFile(testDir, base + "/float_intervals.ttl") , "TTL");
 		model.prepare();
 
 		Resource C1 = model.getResource( ns + "46-60" );

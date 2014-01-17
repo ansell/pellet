@@ -65,6 +65,7 @@ import org.mindswap.pellet.Role;
 import org.mindswap.pellet.exceptions.TimeoutException;
 import org.mindswap.pellet.test.MiscTests;
 import org.mindswap.pellet.test.PelletTestSuite;
+import org.mindswap.pellet.test.utils.TestUtils;
 import org.mindswap.pellet.utils.ATermUtils;
 import org.mindswap.pellet.utils.SetUtils;
 import org.mindswap.pellet.utils.Timer;
@@ -127,10 +128,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 
 	@Test
-	public void testOWL2() throws OWLException {
+	public void testOWL2() throws Exception {
 		String ns = "http://www.example.org/test#";
 
-		OWLOntology ont = loadOntology( base + "owl2.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "owl2.owl") );
 		
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont ) ;
 		try {
@@ -142,10 +143,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 	
 	@Test
-	public void testOWL2Incremental() throws OWLException {
+	public void testOWL2Incremental() throws Exception {
 		String ns = "http://www.example.org/test#";
 
-		OWLOntology ont = loadOntology( base + "owl2.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "owl2.owl") );
 
 		IncrementalClassifier classifier = new IncrementalClassifier( ont );
 		
@@ -231,10 +232,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 
 	@Test
-	public void testUncle() throws OWLException {
+	public void testUncle() throws Exception {
 		String ns = "http://www.example.org/test#";
 
-		OWLOntology ont = loadOntology( base + "uncle.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "uncle.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 
@@ -247,10 +248,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 
 	@Test
-	public void testSibling() throws OWLException {
+	public void testSibling() throws Exception {
 		String ns = "http://www.example.org/test#";
 
-		OWLOntology ont = loadOntology( base + "sibling.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "sibling.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 
@@ -295,10 +296,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 
 
 	@Test
-	public void testPropertyChain() throws OWLException {
+	public void testPropertyChain() throws Exception {
 		String ns = "http://www.example.org/test#";
 
-		OWLOntology ont = loadOntology( base + "propertyChain.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "propertyChain.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner(  ont );
 
@@ -343,10 +344,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 
 	@Test
-	public void testQualifiedCardinality1() throws OWLException {
+	public void testQualifiedCardinality1() throws Exception {
 		String ns = "http://www.example.org/test#";
 
-		OWLOntology ont = loadOntology( base + "qcr.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "qcr.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 
@@ -361,11 +362,11 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 
 	@Test
-	public void testReflexive2() throws OWLException {
+	public void testReflexive2() throws Exception {
 		String ns = "http://www.example.org/test#";
 		String foaf = "http://xmlns.com/foaf/0.1/";
 
-		OWLOntology ont = loadOntology( base + "reflexive.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "reflexive.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 
@@ -388,7 +389,7 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 
 	@Test
 	public void testInfiniteChain() throws Exception {
-		OWLOntology ont = loadOntology( base + "infiniteChain.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "infiniteChain.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 
@@ -418,7 +419,7 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	public void testRemoveLiteral(String indName, boolean buffering) throws Exception {
 		String ns = "http://www.example.org/test#";
 
-		OWLOntology ont = loadOntology( base + "RemoveLiteral.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "RemoveLiteral.owl") );
 
 		PelletReasoner reasoner = buffering
 			? PelletReasonerFactory.getInstance().createReasoner( ont )
@@ -469,10 +470,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 
 	@Test
-	public void testFamily() throws OWLException {
+	public void testFamily() throws Exception {
 		String ns = "http://www.example.org/family#";
 
-		OWLOntology ont = loadOntology( base + "family.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "family.owl") );
 		for (OWLAxiom axiom : ont.getAxioms()) {
 			System.out.println(axiom);	        
         }
@@ -492,10 +493,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 	
 	@Test
-	public void testFamilyIncremental() {
+	public void testFamilyIncremental() throws Exception {
 		String ns = "http://www.example.org/family#";
 
-		OWLOntology ont = loadOntology( base + "family.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "family.owl") );
 
 		IncrementalClassifier classifier = new IncrementalClassifier( ont );
 		
@@ -703,10 +704,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 //	}
 
 	@Test
-	public void testAnonInverse() throws OWLException {
+	public void testAnonInverse() throws Exception {
 		String ns = "http://www.example.org/test#";
 
-		OWLOntology ont = loadOntology( base + "anon_inverse.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "anon_inverse.owl") );
 
 		OWLClass C = Class( ns + "C" );
 		OWLClass D = Class( ns + "D" );
@@ -741,10 +742,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 
 	@Test
-	public void testDLSafeRules() throws OWLOntologyCreationException {
+	public void testDLSafeRules() throws Exception {
 		String ns = "http://owldl.com/ontologies/dl-safe.owl#";
 
-		OWLOntology ont = loadOntology( base + "dl-safe.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "dl-safe.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 
@@ -802,10 +803,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	
 
 	@Test
-	public void testDLSafeConstants() throws OWLOntologyCreationException {
+	public void testDLSafeConstants() throws Exception {
 		String ns = "http://owldl.com/ontologies/dl-safe-constants.owl#";
 
-		OWLOntology ont = loadOntology( base + "dl-safe-constants.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "dl-safe-constants.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 
@@ -872,8 +873,8 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 
 	@Test
-	public void testInvalidTransitivity2() throws OWLOntologyCreationException {
-		OWLOntology ont = loadOntology( base + "invalidTransitivity.owl" );
+	public void testInvalidTransitivity2() throws Exception {
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "invalidTransitivity.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 
@@ -1035,7 +1036,7 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	public void testClassificationTimeout() throws Exception {
 		boolean timeout = false;
 
-		OWLOntology ont = loadOntology( base + "food.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "food.owl") );
 
 		PelletReasoner pellet = PelletReasonerFactory.getInstance().createReasoner( ont );
 		KnowledgeBase kb = pellet.getKB();
@@ -1061,7 +1062,7 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	public void testRealizationTimeout() throws Exception {
 		boolean timeout = false;
 
-		OWLOntology ont = loadOntology( "file:" + PelletTestSuite.base + "modularity/SWEET.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, PelletTestSuite.base + "modularity/SWEET.owl") );
 
 		PelletReasoner pellet = PelletReasonerFactory.getInstance().createReasoner( ont );
 		KnowledgeBase kb = pellet.getKB();
@@ -1402,12 +1403,12 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	
 	@Ignore
 	@Test
-	public void testSetTheory() throws OWLException {
+	public void testSetTheory() throws Exception {
 		// This tests #388
 		
 		String ns = "http://www.integratedmodelling.org/ks/tarassandbox/set-theory.owl#";
 
-		OWLOntology ont = loadOntology( base + "set-theory.owl" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "set-theory.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 
@@ -1576,8 +1577,8 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 	
 	@Test
-	public void test454() {		
-		OWLOntology ont = loadOntology( base + "ticket-454-test-case.owl" );
+	public void test454() throws Exception {		
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "ticket-454-test-case.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 		
@@ -1585,8 +1586,8 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	}
 	
 	@Test
-	public void test456() {		
-		OWLOntology ont = loadOntology( base + "ticket-456-test-case.owl" );
+	public void test456() throws Exception {		
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, base + "ticket-456-test-case.owl") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner( ont );
 		
@@ -1688,10 +1689,10 @@ public class OWLAPIv3Tests extends AbstractOWLAPITests {
 	
 
 	@Test
-	public void testComplementRemoval() throws OWLException {
+	public void testComplementRemoval() throws Exception {
 		String ns = "http://test#";
 
-		OWLOntology ont = loadOntology( MiscTests.base + "ticket539.ofn" );
+		OWLOntology ont = loadOntology( TestUtils.copyResourceToFile( testDir, MiscTests.base + "ticket539.ofn") );
 
 		PelletReasoner reasoner = PelletReasonerFactory.getInstance().createNonBufferingReasoner( ont );
 

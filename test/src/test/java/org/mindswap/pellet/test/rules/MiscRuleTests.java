@@ -38,6 +38,7 @@ import java.util.Set;
 
 import junit.framework.JUnit4TestAdapter;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.mindswap.pellet.DependencySet;
@@ -100,6 +101,7 @@ public class MiscRuleTests {
 		return new JUnit4TestAdapter( MiscRuleTests.class );
 	}
 	
+	@Before
 	public void setUp() throws Exception {
 	    testDir = tempDir.newFolder("miscruletests");
 	}
@@ -1098,7 +1100,7 @@ public class MiscRuleTests {
 	@Test
 	public void testDifferentFromInBody() throws Exception {
 		OntModel ontModel = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC, null );
-		ontModel.read( TestUtils.copyResourceToFile(testDir, base + "/sibling-rule.n3"), "TTL" );
+		ontModel.read( TestUtils.copyResourceToFileStream(testDir, base + "/sibling-rule.n3"), "", "TTL" );
 
 		Resource alice = ontModel.createResource( "family:alice" );
 		Property sibling = ontModel.createProperty( "family:sibling" );

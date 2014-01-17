@@ -78,8 +78,8 @@ public class TracingTests extends AbstractKBTests {
 
 	@Override
     @Before
-	public void initializeKB() throws Exception {
-		super.initializeKB();
+	public void setUp() throws Exception {
+		super.setUp();
 		
 		old_USE_TRACING = PelletOptions.USE_TRACING;
 		PelletOptions.USE_TRACING = true;

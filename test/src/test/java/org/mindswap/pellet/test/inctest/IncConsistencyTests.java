@@ -177,6 +177,7 @@ public class IncConsistencyTests extends AbstractKBTests {
 		assertEquals( Bool.TRUE, kb.hasKnownPropertyValue( robert, ssn, literal ));
 	}
 	
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		preUCQ = PelletOptions.USE_COMPLETION_QUEUE;
@@ -192,7 +193,7 @@ public class IncConsistencyTests extends AbstractKBTests {
 		PelletOptions.USE_SMART_RESTORE = true;
 		PelletOptions.PRINT_ABOX = PRINT_ABOX;
 
-		super.initializeKB();
+		super.setUp();
 		
 		kb.setDoExplanation( PelletOptions.USE_TRACING );
 	}

@@ -59,10 +59,10 @@ public class TBoxTests extends AbstractKBTests {
 
 	private TBox tbox;
 	
-	
+	@Override
 	@Before
-	public void initializeKB() throws Exception {
-		super.initializeKB();
+	public void setUp() throws Exception {
+		super.setUp();
 		tbox = kb.getTBox();
 	}
 	

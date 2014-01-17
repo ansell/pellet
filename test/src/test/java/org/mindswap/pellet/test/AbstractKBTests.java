@@ -61,7 +61,7 @@ public class AbstractKBTests {
 	protected KnowledgeBase kb;
 	
 	@Before
-	public void initializeKB() throws Exception {
+	public void setUp() throws Exception {
 	    testDir = tempDir.newFolder("kbtest");
 		kb = new KnowledgeBase();
 	}

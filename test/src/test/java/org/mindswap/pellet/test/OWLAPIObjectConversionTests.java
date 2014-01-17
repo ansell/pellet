@@ -53,7 +53,7 @@ import com.clarkparsia.pellet.owlapiv3.PelletVisitor;
  * @author Evren Sirin
  */
 public class OWLAPIObjectConversionTests {
-	public static String				base			= "file:" + PelletTestSuite.base + "misc/";
+	public static String				base			= PelletTestSuite.base + "misc/";
 
 	private static String				ns				= "urn:test:";
 

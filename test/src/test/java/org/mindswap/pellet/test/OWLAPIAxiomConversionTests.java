@@ -60,7 +60,7 @@ import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
  * @author Evren Sirin
  */
 public class OWLAPIAxiomConversionTests {
-	public static String				base			= "file:" + PelletTestSuite.base + "misc/";
+	public static String				base			= PelletTestSuite.base + "misc/";
 
 	private static String				ns				= "urn:test#";
 

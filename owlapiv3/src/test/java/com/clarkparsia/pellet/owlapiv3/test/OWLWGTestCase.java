@@ -8,7 +8,9 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Timeout;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -31,6 +33,15 @@ import com.clarkparsia.owlwg.testrun.TestRunResult;
 
 @RunWith(Parameterized.class)
 public class OWLWGTestCase {
+    
+    /**
+     * Ensure that test cases timeout after 30 seconds.
+     * 
+     * This is in slightly broader than the 20 second timeout for each PelletOA3TestRunner.
+     */
+    @Rule
+    public Timeout timeout = new Timeout(30000);
+    
 	@Parameters
     public static List<Object[]> data() throws OWLOntologyCreationException, OWLOntologyChangeException {
     	final OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -49,16 +60,18 @@ public class OWLWGTestCase {
 
 		OWLOntology casesOntology = manager.loadOntologyFromOntologyDocument( OWLWGTestCase.class.getResourceAsStream(OWLWG_TEST_CASES_IRI) );
 		
-		TestCollection cases = new TestCollection( factory, casesOntology, filter );
-		
-		manager.removeOntology( casesOntology );
-    	
-		List<Object[]> testParams = new ArrayList<Object[]>( cases.size() );
-		for( Object test : cases.asList() ) {
-			testParams.add( new Object[] { test } );
-		}
-		
-    	return testParams;
+		try {
+    		TestCollection<OWLOntology> cases = new TestCollection<OWLOntology>( factory, casesOntology, filter );
+    		
+    		List<Object[]> testParams = new ArrayList<Object[]>( cases.size() );
+    		for( Object test : cases.asList() ) {
+    			testParams.add( new Object[] { test } );
+    		}
+    		
+        	return testParams;
+		} finally {
+    	       manager.removeOntology( casesOntology );
+    	}
     }
     
     private TestCase<OWLOntology> test;
@@ -86,6 +99,7 @@ public class OWLWGTestCase {
 			}
 		} finally {
 			test.dispose();
+			test = null;
 			System.gc();
 		}
 	}

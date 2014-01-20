@@ -6,10 +6,15 @@
 
 package org.mindswap.pellet.test.rules;
 
+import java.io.File;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.mindswap.pellet.jena.PelletInfGraph;
 import org.mindswap.pellet.jena.PelletReasonerFactory;
 import org.mindswap.pellet.test.PelletTestSuite;
+import org.mindswap.pellet.test.utils.TestUtils;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -26,15 +31,25 @@ public class SWRLPerformanceTests {
         org.junit.runner.JUnitCore.main("org.mindswap.pellet.test.rules.SWRLPerformanceTests");
     }
         
-	private final static String base = "file:" + PelletTestSuite.base + "swrl-test/misc/";
+	private final static String base = PelletTestSuite.base + "swrl-test/misc/";
 	
+    @org.junit.Rule
+    public TemporaryFolder tempDir = new TemporaryFolder();
+    
+    private File testDir;
+    
+    @Before
+    public void setUp() throws Exception {
+        testDir = tempDir.newFolder("miscruletests");
+    }
+    
 	@Test
-	public void testBasicFamily()  {
+	public void testBasicFamily() throws Exception  {
 		String ns = "http://www.csc.liv.ac.uk/~luigi/ontologies/basicFamily#";
 
 		OntModel ontModel = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC, null );
-		ontModel.read( base + "basicFamilyReference.owl" );
-		ontModel.read( base + "basicFamilyRules.owl" );
+		ontModel.read( TestUtils.copyResourceToFile(testDir, base + "basicFamilyReference.owl") );
+		ontModel.read( TestUtils.copyResourceToFile(testDir, base + "basicFamilyRules.owl") );
 		ontModel.prepare();
 		
 	
@@ -51,11 +66,11 @@ public class SWRLPerformanceTests {
 	}
 	
 	@Test
-	public void testDayCare(){
+	public void testDayCare() throws Exception{
 		String ns = "https://mywebspace.wisc.edu/jpthielman/web/daycareontology#";
 		
 		OntModel ontModel = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC, null );
-		ontModel.read( base + "daycare.swrl.owl" );
+		ontModel.read( TestUtils.copyResourceToFile(testDir, base + "daycare.swrl.owl") );
 		ontModel.prepare();		
 
 		Property exposedTo = ontModel.getProperty( ns + "is_exposed_to" );
@@ -76,7 +91,7 @@ public class SWRLPerformanceTests {
 		String ns = "http://a.com/ontology#";
 		
 		OntModel ontModel = ModelFactory.createOntologyModel( PelletReasonerFactory.THE_SPEC, null );
-		ontModel.read( base + "family.swrl.owl" );
+		ontModel.read( TestUtils.copyResourceToFile(testDir, base + "family.swrl.owl") );
 		ontModel.prepare();
 		
 		Property hasSibling = ontModel.getProperty( ns + "hasSibling" );

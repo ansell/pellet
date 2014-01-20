@@ -15,7 +15,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Map.Entry;
 
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -32,6 +34,8 @@ import profiler.ProfileKB.Task;
  *
  */
 @RunWith(Parameterized.class)
+@Category(ReleaseTests.class)
+@Ignore("Enable to test release performance")
 public class ReleasePerformanceTest {
 
 	private static final int PARSE = Task.Parse.ordinal();

@@ -135,12 +135,6 @@
         </dependencies>
     </dependencyManagement>
     <build>
-    	<plugins>
-    		<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-			</plugin>	    	
-    	</plugins>
         <pluginManagement>
             <plugins>
 
@@ -308,7 +302,7 @@
 		<properties>
 			<testcase.groups>com.clarkparsia.StableTests</testcase.groups>
 			<testcase.excludegroups>com.clarkparsia.UnstableTests</testcase.excludegroups>
-			<exclude.tests>com/clarkparsia/pellet/test/query/SparqlDawgTestCase.java</exclude.tests>
+			<exclude.tests>com/clarkparsia/pellet/test/query/SparqlDawgTestCase.java,org/mindswap/pellet/test/WebOntTestCase.java</exclude.tests>
 		</properties>
 	</profile>
 	<profile>
@@ -318,8 +312,31 @@
 		</activation>
 		<properties>
 			<testcase.groups>com.clarkparsia.UnstableTests</testcase.groups>
-			<exclude.tests>com/clarkparsia/pellet/test/query/SparqlDawgTestCase.java</exclude.tests>
+			<testcase.excludegroups>com.clarkparsia.StableTests</testcase.excludegroups>
+			<exclude.tests>com/clarkparsia/pellet/test/query/SparqlDawgTestCase.java,org/mindswap/pellet/test/WebOntTestCase.java</exclude.tests>
 		</properties>
+	</profile>
+	<profile>
+		<id>release-tests</id>
+		<activation>
+			<activeByDefault>false</activeByDefault>
+		</activation>
+		<properties>
+			<testcase.groups>profiler.statistical.ReleaseTests</testcase.groups>
+			<testcase.excludegroups>com.clarkparsia.UnstableTests,com.clarkparsia.StableTests</testcase.excludegroups>
+			<exclude.tests>com/clarkparsia/pellet/test/query/SparqlDawgTestCase.java,org/mindswap/pellet/test/WebOntTestCase.java</exclude.tests>
+		</properties>
+	</profile>
+	<profile>
+		<id>findbugs</id>
+		<build>
+			<plugins>
+	    		<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>findbugs-maven-plugin</artifactId>
+				</plugin>	    	
+	    	</plugins>
+    	</build>
 	</profile>
 </profiles>
 </project>

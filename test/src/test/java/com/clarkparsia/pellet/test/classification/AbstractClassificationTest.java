@@ -11,8 +11,11 @@ package com.clarkparsia.pellet.test.classification;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.Timeout;
 import org.mindswap.pellet.test.PelletTestSuite;
+
+import com.clarkparsia.UnstableTests;
 
 /**
  * 
@@ -77,7 +80,8 @@ public abstract class AbstractClassificationTest {
 		testFile( "sio" );
 	}
 	
-	@Ignore("This test times out")
+	@Category(UnstableTests.class)
+	@Ignore("Consistently timing out")
 	@Test	
 	public void mechanicalEngineeringTest() throws Exception {
 		testFile( "MechanicalEngineering" );

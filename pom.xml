@@ -232,7 +232,11 @@
 				        <forkCount>1</forkCount>
 						<reuseForks>true</reuseForks>                    
                         <argLine>-Xmx1536m -XX:MaxPermSize=512m</argLine>
-                        <groups>${testcase.groups}</groups>
+						<excludes>
+							<exclude>${exclude.tests}</exclude>
+						</excludes>
+				        <groups>${testcase.groups}</groups>
+						<excludedGroups>${testcase.excludegroups}</excludedGroups>
 					</configuration>
                 </plugin>
                 <plugin>
@@ -303,6 +307,8 @@
 		</activation>
 		<properties>
 			<testcase.groups>com.clarkparsia.StableTests</testcase.groups>
+			<testcase.excludegroups>com.clarkparsia.UnstableTests</testcase.excludegroups>
+			<exclude.tests>com/clarkparsia/pellet/test/query/SparqlDawgTestCase.java</exclude.tests>
 		</properties>
 	</profile>
 	<profile>
@@ -312,6 +318,7 @@
 		</activation>
 		<properties>
 			<testcase.groups>com.clarkparsia.UnstableTests</testcase.groups>
+			<exclude.tests>com/clarkparsia/pellet/test/query/SparqlDawgTestCase.java</exclude.tests>
 		</properties>
 	</profile>
 </profiles>

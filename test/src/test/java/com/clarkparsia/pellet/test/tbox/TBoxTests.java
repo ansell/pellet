@@ -26,11 +26,14 @@ import junit.framework.JUnit4TestAdapter;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mindswap.pellet.PelletOptions;
 import org.mindswap.pellet.tbox.TBox;
 import org.mindswap.pellet.tbox.impl.Unfolding;
 import org.mindswap.pellet.test.AbstractKBTests;
 import org.mindswap.pellet.utils.iterator.IteratorUtils;
+
+import com.clarkparsia.StableTests;
 
 import aterm.ATermAppl;
 
@@ -51,6 +54,7 @@ import aterm.ATermAppl;
  * 
  * @author Mike Smith
  */
+@Category(StableTests.class)
 public class TBoxTests extends AbstractKBTests {
 
 	public static junit.framework.Test suite() {

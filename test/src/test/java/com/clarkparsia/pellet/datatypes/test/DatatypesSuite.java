@@ -2,9 +2,12 @@ package com.clarkparsia.pellet.datatypes.test;
 
 import junit.framework.JUnit4TestAdapter;
 
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+
+import com.clarkparsia.StableTests;
 
 /**
  * <p>
@@ -26,6 +29,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses( { DatatypeReasonerTests.class, FloatingPointUtilsTests.class, ContinuousRealIntervalTests.class,
                 IntegerIntervalTests.class, RationalTests.class, RestrictedRealDatatypeTests.class,
                 RestrictedTimelineDatatypeTests.class, DatatypeRestrictionTests.class })
+@Category(StableTests.class)
 public class DatatypesSuite {
 	public static junit.framework.Test suite() {
 		return new JUnit4TestAdapter(DatatypesSuite.class);

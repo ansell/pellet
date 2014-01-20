@@ -13,8 +13,12 @@ import java.util.List;
 
 import junit.framework.TestSuite;
 
+import org.junit.experimental.categories.Category;
 import org.mindswap.pellet.utils.AlphaNumericComparator;
 
+import com.clarkparsia.UnstableTests;
+
+@Category(UnstableTests.class)
 public class LiebigTestSuite extends TestSuite {
 	public static String base = PelletTestSuite.base + "liebig-tests/";
 		

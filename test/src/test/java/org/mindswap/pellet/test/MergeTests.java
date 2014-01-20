@@ -18,9 +18,13 @@ import static org.junit.Assert.assertTrue;
 import junit.framework.JUnit4TestAdapter;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import com.clarkparsia.StableTests;
 
 import aterm.ATermAppl;
 
+@Category(StableTests.class)
 public class MergeTests extends AbstractKBTests {
 	public static String	base	= "file:" + PelletTestSuite.base + "misc/";
 

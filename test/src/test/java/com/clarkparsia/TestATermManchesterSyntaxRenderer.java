@@ -12,11 +12,11 @@ import java.io.StringWriter;
 import junit.framework.JUnit4TestAdapter;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mindswap.pellet.output.ATermManchesterSyntaxRenderer;
 import org.mindswap.pellet.output.ATermRenderer;
 
 import aterm.ATermAppl;
-
 import static org.junit.Assert.assertEquals;
 import static com.clarkparsia.pellet.utils.TermFactory.and;
 import static com.clarkparsia.pellet.utils.TermFactory.or;
@@ -48,6 +48,7 @@ import static com.clarkparsia.pellet.utils.TermFactory.some;
  * 
  * @author Markus Stocker
  */
+@Category(StableTests.class)
 public class TestATermManchesterSyntaxRenderer {
 
 	public static junit.framework.Test suite() {

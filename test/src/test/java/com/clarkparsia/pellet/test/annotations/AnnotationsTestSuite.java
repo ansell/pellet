@@ -2,7 +2,10 @@ package com.clarkparsia.pellet.test.annotations;
 
 import junit.framework.TestSuite;
 
+import org.junit.experimental.categories.Category;
 import org.mindswap.pellet.test.TestAnnotations;
+
+import com.clarkparsia.StableTests;
 
 /**
  * <p>
@@ -20,6 +23,7 @@ import org.mindswap.pellet.test.TestAnnotations;
  * 
  * @author Hector Perez-Urbina
  */
+@Category(StableTests.class)
 public class AnnotationsTestSuite extends TestSuite {
 
 	public static TestSuite suite() {

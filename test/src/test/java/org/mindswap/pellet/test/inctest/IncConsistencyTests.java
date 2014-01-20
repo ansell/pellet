@@ -38,6 +38,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mindswap.pellet.KnowledgeBase;
@@ -51,6 +52,7 @@ import org.mindswap.pellet.utils.Timer;
 
 import aterm.ATermAppl;
 
+import com.clarkparsia.StableTests;
 import com.clarkparsia.pellet.datatypes.Datatypes;
 import com.clarkparsia.pellet.rules.model.AtomIVariable;
 import com.clarkparsia.pellet.rules.model.ClassAtom;
@@ -75,6 +77,7 @@ import com.clarkparsia.pellet.rules.model.RuleAtom;
  * @author Christian Halaschek-Wiener
  */
 @RunWith(Parameterized.class)
+@Category(StableTests.class)
 public class IncConsistencyTests extends AbstractKBTests {
 
 	@Parameterized.Parameters

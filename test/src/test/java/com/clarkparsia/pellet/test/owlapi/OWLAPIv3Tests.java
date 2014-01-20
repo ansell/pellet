@@ -59,6 +59,7 @@ import junit.framework.JUnit4TestAdapter;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mindswap.pellet.KnowledgeBase;
 import org.mindswap.pellet.PelletOptions;
 import org.mindswap.pellet.Role;
@@ -97,6 +98,7 @@ import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 
 import aterm.ATermAppl;
 
+import com.clarkparsia.StableTests;
 import com.clarkparsia.modularity.IncrementalClassifier;
 import com.clarkparsia.owlapiv3.OWL;
 import com.clarkparsia.owlapiv3.SWRL;
@@ -122,6 +124,7 @@ import com.clarkparsia.pellet.utils.PropertiesBuilder;
  * 
  * @author Evren Sirin
  */
+@Category(StableTests.class)
 public class OWLAPIv3Tests extends AbstractOWLAPITests {	
 	public static junit.framework.Test suite() {
 		return new JUnit4TestAdapter( OWLAPIv3Tests.class );

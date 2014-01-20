@@ -3,9 +3,11 @@ package com.clarkparsia.pellint.test;
 import junit.framework.JUnit4TestAdapter;
 import junit.framework.Test;
 
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import com.clarkparsia.StableTests;
 import com.clarkparsia.pellint.test.lintpattern.LintPatternLoaderTest;
 import com.clarkparsia.pellint.test.lintpattern.axiom.EquivalentToAllValuePatternTest;
 import com.clarkparsia.pellint.test.lintpattern.axiom.EquivalentToComplementPatternTest;
@@ -64,6 +66,7 @@ import com.clarkparsia.pellint.test.util.OptimizedDirectedMultigraphTest;
 	OWLDatatypeTest.class,
 	OWL2DLProfileViolationsTest.class
 })
+@Category(StableTests.class)
 public class PellintTestSuite {
 	
 	public static Test suite() { 

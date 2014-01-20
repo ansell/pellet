@@ -21,12 +21,14 @@ import junit.framework.JUnit4TestAdapter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mindswap.pellet.KnowledgeBase;
 import org.mindswap.pellet.PelletOptions;
 import org.mindswap.pellet.utils.progress.AbstractProgressMonitor;
 
 import aterm.ATermAppl;
 
+import com.clarkparsia.StableTests;
 import com.clarkparsia.pellet.utils.TermFactory;
 
 /**
@@ -45,6 +47,7 @@ import com.clarkparsia.pellet.utils.TermFactory;
  * 
  * @author Markus Stocker
  */
+@Category(StableTests.class)
 public class TestKnowledgeBase {
 
 	@BeforeClass

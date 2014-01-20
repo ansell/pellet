@@ -9,11 +9,13 @@ import java.util.Arrays;
 
 import junit.framework.TestSuite;
 
-import org.junit.Ignore;
+import org.junit.experimental.categories.Category;
 import org.mindswap.pellet.utils.AlphaNumericComparator;
 import org.mindswap.pellet.utils.Comparators;
 
-@Ignore("Unignore to include in testing")
+import com.clarkparsia.UnstableTests;
+
+@Category(UnstableTests.class)
 public class WebOntTestSuite extends TestSuite {
     public static String base = PelletTestSuite.base + "owl-test/";
 

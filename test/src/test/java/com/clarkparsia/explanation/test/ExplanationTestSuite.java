@@ -12,9 +12,12 @@ import junit.framework.JUnit4TestAdapter;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.mindswap.pellet.PelletOptions;
+
+import com.clarkparsia.StableTests;
 
 /**
  * <p>
@@ -36,6 +39,7 @@ import org.mindswap.pellet.PelletOptions;
 @RunWith(Suite.class)
 @Suite.SuiteClasses( { OWLAPIExplanationTest.class, JenaExplanationTest.class, 
 	MiscExplanationTests.class, ExplanationRendererTest.class } )
+@Category(StableTests.class)
 public class ExplanationTestSuite {
 
 	public static junit.framework.Test suite() {

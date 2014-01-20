@@ -32,6 +32,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.TemporaryFolder;
 import org.mindswap.pellet.KnowledgeBase;
 import org.mindswap.pellet.PelletOptions;
@@ -45,6 +46,7 @@ import org.mindswap.pellet.utils.ATermUtils;
 
 import aterm.ATermAppl;
 
+import com.clarkparsia.StableTests;
 import com.clarkparsia.pellet.datatypes.DatatypeReasoner;
 import com.clarkparsia.pellet.datatypes.DatatypeReasonerImpl;
 import com.clarkparsia.pellet.utils.PropertiesBuilder;
@@ -79,6 +81,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 import com.hp.hpl.jena.vocabulary.ReasonerVocabulary;
 import com.hp.hpl.jena.vocabulary.XSD;
 
+@Category(StableTests.class)
 public class JenaTests {
     @Rule
     public TemporaryFolder tempDir = new TemporaryFolder();

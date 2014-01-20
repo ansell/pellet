@@ -26,6 +26,7 @@ import junit.framework.JUnit4TestAdapter;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mindswap.pellet.KBLoader;
 import org.mindswap.pellet.KnowledgeBase;
 import org.mindswap.pellet.PelletOptions;
@@ -41,6 +42,7 @@ import org.mindswap.pellet.utils.progress.SilentProgressMonitor;
 
 import aterm.ATermAppl;
 
+import com.clarkparsia.StableTests;
 import com.clarkparsia.pellet.el.SimplifiedELClassifier;
 import com.clarkparsia.pellet.utils.PropertiesBuilder;
 import com.clarkparsia.pellet.utils.TermFactory;
@@ -61,6 +63,7 @@ import com.clarkparsia.pellet.utils.TermFactory;
  * 
  * @author Evren Sirin
  */
+@Category(StableTests.class)
 public class ELTests extends AbstractKBTests {
 	private static final ATermAppl[] X = new ATermAppl[5];
 

@@ -58,6 +58,7 @@ import junit.framework.JUnit4TestAdapter;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mindswap.pellet.Clash;
 import org.mindswap.pellet.KBLoader;
 import org.mindswap.pellet.KnowledgeBase;
@@ -77,6 +78,7 @@ import aterm.ATerm;
 import aterm.ATermAppl;
 import aterm.ATermList;
 
+import com.clarkparsia.StableTests;
 import com.clarkparsia.pellet.datatypes.Datatypes;
 import com.clarkparsia.pellet.datatypes.Facet;
 import com.clarkparsia.pellet.datatypes.types.real.XSDByte;
@@ -86,6 +88,7 @@ import com.clarkparsia.pellet.datatypes.types.text.XSDString;
 import com.clarkparsia.pellet.utils.PropertiesBuilder;
 import com.clarkparsia.pellet.utils.TermFactory;
 
+@Category(StableTests.class)
 public class MiscTests extends AbstractKBTests {
 	public static String	base	= PelletTestSuite.base + "misc/";
 

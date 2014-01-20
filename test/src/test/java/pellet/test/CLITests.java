@@ -10,9 +10,12 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.Timeout;
 import org.mindswap.pellet.test.utils.TestUtils;
+
+import com.clarkparsia.StableTests;
 
 import pellet.PelletClassify;
 import pellet.PelletCmdApp;
@@ -28,7 +31,7 @@ import pellet.PelletTransTree;
 import pellet.PelletUnsatisfiable;
 import pellet.Pellint;
 
-
+@Category(StableTests.class)
 public class CLITests {
 
     /**

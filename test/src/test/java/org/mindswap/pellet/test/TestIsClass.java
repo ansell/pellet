@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 import junit.framework.JUnit4TestAdapter;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mindswap.pellet.KnowledgeBase;
 import org.mindswap.pellet.utils.ATermUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -32,6 +33,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 import aterm.ATermAppl;
 
+import com.clarkparsia.StableTests;
 import com.clarkparsia.pellet.owlapiv3.PelletReasoner;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 
@@ -53,6 +55,7 @@ import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
  * 
  * @author Markus Stocker
  */
+@Category(StableTests.class)
 public class TestIsClass {
 
 	public static junit.framework.Test suite() {

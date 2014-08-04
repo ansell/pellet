@@ -16,6 +16,7 @@ import org.mindswap.pellet.taxonomy.printer.ClassTreePrinter;
 import org.mindswap.pellet.utils.ATermUtils;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.search.EntitySearcher;
 
 import pellet.PelletTransTree;
 import aterm.ATermAppl;
@@ -36,14 +37,18 @@ public class TransTreeTest {
 		
 		OWLEntity entity = OntologyUtils.findEntity( propertyURI, loader.getAllOntologies() );
 
-		if( entity == null )
-			throw new IllegalArgumentException( "Property not found: " + propertyURI );
+		if( entity == null ) {
+            throw new IllegalArgumentException( "Property not found: " + propertyURI );
+        }
 
-		if( !(entity instanceof OWLObjectProperty) )
-			throw new IllegalArgumentException( "Not an object property: " + propertyURI );
+		if( !(entity instanceof OWLObjectProperty) ) {
+            throw new IllegalArgumentException( "Not an object property: " + propertyURI );
+        }
 
-		if( !((OWLObjectProperty) entity).isTransitive( loader.getAllOntologies() ) )
-			throw new IllegalArgumentException( "Not a transitive property: " + propertyURI );
+        if (!EntitySearcher.isTransitive((OWLObjectProperty) entity,
+                loader.getAllOntologies())) {
+            throw new IllegalArgumentException( "Not a transitive property: " + propertyURI );
+        }
 		
 		ATermAppl p = ATermUtils.makeTermAppl( entity.getIRI().toString() );
 

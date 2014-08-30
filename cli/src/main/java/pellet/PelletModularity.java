@@ -13,7 +13,7 @@ import static pellet.PelletCmdOptionArg.REQUIRED;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -151,7 +151,8 @@ public class PelletModularity extends PelletCmdApp {
 
 		try {
 			OWLOntology moduleOnt = loader.getManager().createOntology( module );
-			loader.getManager().saveOntology( moduleOnt, new RDFXMLOntologyFormat(),
+            loader.getManager().saveOntology(moduleOnt,
+                    new RDFXMLDocumentFormat(),
 					new SystemOutDocumentTarget() );
 		} catch( OWLException e ) {
 			throw new RuntimeException( e );

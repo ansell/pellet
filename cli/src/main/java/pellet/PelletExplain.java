@@ -18,11 +18,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.mindswap.pellet.utils.Timer;
 import org.mindswap.pellet.utils.progress.ConsoleProgressMonitor;
 import org.mindswap.pellet.utils.progress.ProgressMonitor;
-import org.semanticweb.owlapi.expression.ParserException;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 import com.clarkparsia.owlapi.explanation.BlackBoxExplanation;
 import com.clarkparsia.owlapi.explanation.GlassBoxExplanation;
@@ -587,8 +588,9 @@ public class PelletExplain extends PelletCmdApp {
                     }
 				}
 				else {
-					ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-							loader.getManager().getOWLDataFactory(), names[2] );
+                    ManchesterOWLSyntaxParser parser = OWLManager
+                            .createManchesterParser();
+                    parser.setStringToParse(names[2]);
 					try {
                         name3 = parser.parseLiteral(null);
 					} catch( ParserException e ) {

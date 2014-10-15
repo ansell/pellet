@@ -21,7 +21,7 @@
 		</dependency>
 		<dependency>
 			<groupId>net.sourceforge.owlapi</groupId>
-			<artifactId>owlapi-compatibilitydistribution</artifactId>
+			<artifactId>owlapi-compatibility</artifactId>
 		</dependency>
 	  	<dependency>
 	  		<groupId>junit</groupId>
